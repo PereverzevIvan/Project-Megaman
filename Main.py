@@ -1655,23 +1655,24 @@ class Camera:
         return obj.rect.x, obj.rect.y
 
     # Позиционировать камеру на объекте target
-    def update(self, target):
-        self.dx = (-target.rect.centerx + SIZE[0] // 2)
-        self.dy = (-target.rect.centery + SIZE[1] // 2)
-        self.left += self.dx // 2
-        if self.left > 0:
-            self.left = 0
-            self.dx = 0
-        self.right += self.dx // 2
-        self.bottom += self.dy // 2
-        self.top += self.dy // 2
-        if self.bottom < self.b_limit:
-            self.bottom = self.b_limit
-            self.dy = 0
-        if self.right < self.r_limit:
-            self.right = self.r_limit
-        if self.top < 0:
-            self.top = 0
+    def update(self, target, boss):
+        if boss.hp > 0:
+            self.dx = (-target.rect.centerx + SIZE[0] // 2)
+            self.dy = (-target.rect.centery + SIZE[1] // 2)
+            self.left += self.dx // 2
+            if self.left > 0:
+                self.left = 0
+                self.dx = 0
+            self.right += self.dx // 2
+            self.bottom += self.dy // 2
+            self.top += self.dy // 2
+            if self.bottom < self.b_limit:
+                self.bottom = self.b_limit
+                self.dy = 0
+            if self.right < self.r_limit:
+                self.right = self.r_limit
+            if self.top < 0:
+                self.top = 0
 
 
 # Класс пуль персонажа
@@ -1834,7 +1835,7 @@ def new_game(level):
                 if event.key == pygame.K_DOWN:
                     down = False
         if not PAUSE:
-            camera.update(megaman)
+            camera.update(megaman, boss)
             if megaman.in_stage:
                 ENEMY_BULLETS.update()
                 BULLETS.update()
