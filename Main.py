@@ -1681,15 +1681,15 @@ class Bullet(pygame.sprite.Sprite):
         super().__init__(BULLETS)
         self.image = BULLET_IMAGE
         self.rect = self.image.get_rect()
-        self.rect.x = x + 40
+        self.rect.x = x + 35
         if right == -1:
-            self.rect.x = x - 50
-        self.rect.y = y - 3
+            self.rect.x = x - 55
+        self.rect.y = y - 9
         self.damage = 4
         if hero.in_jump:
             self.rect.y = y - 30
         elif hero.on_stair:
-            self.rect.y = y - 25
+            self.rect.y = y - 30
         self.speed = 20 * right
 
     def update(self):
